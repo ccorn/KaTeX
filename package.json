@@ -90,7 +90,7 @@
     "build": "yarn prestart && rimraf dist/ && mkdirp dist && cp README.md dist && rollup -c && webpack",
     "watch": "yarn build --watch",
     "dist": "yarn test && yarn build && yarn dist:zip",
-    "dist:zip": "cd dist && tar czf ../katex.tar.gz * && zip -rq ../katex.zip *"
+    "dist:zip": "(set -e; test ! -d katex; trap 'rm -rf katex' EXIT; cp -R dist katex; tar czf katex.tar.gz katex; rm -f katex.zip; zip -rq katex.zip katex)"
   },
   "dependencies": {
     "commander": "^2.16.0"
